@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use App\Notifications\InscriptionReussiNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
@@ -37,9 +38,22 @@ class AuthController extends Controller
             'sexe' => $request->sexe,
         ]);
 
+
         return response()->json(['message'=>'User created successfully','user'=>$user,Response::HTTP_CREATED]);
      
     }
+
+    // cree une fonction qui envoie un email a un utilisateur par son email
+    public function sendEmail($email)
+    {
+        $user = User::where('email', $email)->first();
+        if (!$user) {
+            return response()->json(['message' => 'Email not foundiii'], Response::HTTP_NOT_FOUND);
+        }
+        $user->notify(new InscriptionReussiNotification($user->name));
+        return response()->json(['message' => 'Email sent'], Response::HTTP_OK);
+    }
+
 
     public function Login(Request $request)
     {

@@ -14,8 +14,12 @@ class InscriptionReussiNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public $name;
+    // public $role;
+    public function __construct($name)
     {
+        $this->name = $name;
+        // $this->role = $role;
         //
     }
 
@@ -34,10 +38,13 @@ class InscriptionReussiNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('Inscription réussie')
+            ->greeting('Bonjour, ' . $this->name . ' 👋')
+            ->line('Nous sommes ravis de vous informer que votre inscription sur UD s\'est bien passée.')
+            // ->action('Visitez notre site', url('/'))
+            ->line('Merci d\'avoir choisi notre application!');
     }
 
     /**

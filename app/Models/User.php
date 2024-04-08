@@ -25,7 +25,11 @@ class User extends Authenticatable
         'adresse',
         'telephone',
         'idProfile',
-        'sexe'
+        'sexe',
+        'tarif',
+        'cv',
+        'solde',
+        
     ];
 
     /**
