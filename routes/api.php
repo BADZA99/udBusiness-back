@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\DemandeController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -30,4 +32,10 @@ Route::post('updateUser/{id}', [UserController::class, 'updateUser']);
 
 // profile
 Route::get('profiles', [profileController::class, 'allProfiles']);
+
+// demandes
+Route::post('createDemande', [DemandeController::class, 'createDemande']);
+
+// categories
+Route::get('categories', [CategorieController::class, 'getCategories']);
 
