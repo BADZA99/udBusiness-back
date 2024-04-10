@@ -18,6 +18,8 @@ class Services extends Model
         'statut',
         'categorie_id',
         'photo',
+        'nomPrestataire',
+        'telephonePresta',
 
     ];
     protected $table = 'services';

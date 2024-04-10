@@ -21,6 +21,8 @@ class ServiceController extends Controller
             'statut' => 1,
             'categorie_id' => $request->categorie_id,
             'photo' => $request->photo,
+            'nomPrestataire' => $request->nomPrestataire,
+            'telephonePresta' => $request->telephonePresta,
         ]);
         if (!$service) {
             return response()->json(['message' => 'Service not created'], Response::HTTP_BAD_REQUEST);

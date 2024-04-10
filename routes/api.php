@@ -42,6 +42,7 @@ Route::get('userDemandes/{id}', [DemandeController::class, 'userDemandes']);
 // services
 Route::post('createService', [ServiceController::class, 'createService']);
 Route::get('services', [ServiceController::class, 'allServices']);
+Route::get('services/{id}', [ServiceController::class, 'userServices']);
 
 // categories
 Route::get('categories', [CategorieController::class, 'getCategories']);
