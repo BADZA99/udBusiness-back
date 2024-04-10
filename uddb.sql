@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 09 avr. 2024 à 01:33
+-- Généré le : mer. 10 avr. 2024 à 02:18
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.1.17
 
@@ -51,6 +51,14 @@ CREATE TABLE `categories` (
   `libelle` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Déchargement des données de la table `categories`
+--
+
+INSERT INTO `categories` (`id`, `created_at`, `updated_at`, `libelle`) VALUES
+(1, '2024-04-09 00:20:37', '2024-04-09 00:20:37', 'developement'),
+(2, '2024-04-09 00:21:30', '2024-04-09 00:21:30', 'bureautique');
+
 -- --------------------------------------------------------
 
 --
@@ -60,7 +68,6 @@ CREATE TABLE `categories` (
 CREATE TABLE `demandes` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
-  `service_id` bigint(20) UNSIGNED NOT NULL,
   `statut` varchar(255) NOT NULL,
   `titre` varchar(255) NOT NULL,
   `description` text NOT NULL,
@@ -68,8 +75,19 @@ CREATE TABLE `demandes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `categorie_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `photo` mediumtext DEFAULT NULL
+  `photo` mediumtext DEFAULT NULL,
+  `nomDemandeur` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `demandes`
+--
+
+INSERT INTO `demandes` (`id`, `user_id`, `statut`, `titre`, `description`, `date_limite`, `created_at`, `updated_at`, `categorie_id`, `photo`, `nomDemandeur`) VALUES
+(1, 3, '1', 'recherche dev', 'bou ayy', '2024-04-12', '2024-04-09 00:48:01', '2024-04-09 00:48:01', 1, 'papa.jpg', 'papa'),
+(2, 3, '1', 'stagiare', 'beug liguey', '2024-04-21', '2024-04-09 19:55:36', '2024-04-09 19:55:36', 1, 'PAPA BADARA NDIAYE (4).pdf', 'papa'),
+(19, 3, '1', 'recherche dev angular', 'bou ayy', '2024-04-12', '2024-04-10 00:01:27', '2024-04-10 00:01:27', 1, 'papa.jpg', 'papa'),
+(20, 12, '1', 'recherche peintre', 'heeeeeeeeeeeeeeeeeee', '2024-07-10', '2024-04-10 00:05:36', '2024-04-10 00:05:36', 1, 'PAPA BADARA NDIAYE (1).pdf', 'snowfall');
 
 -- --------------------------------------------------------
 
@@ -107,7 +125,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (17, '2024_04_06_124018_add_cv_to_profile_table', 8),
 (18, '2024_04_06_130327_add_telephone_to_users_table', 9),
 (19, '2024_04_06_134537_update_profile_table', 10),
-(20, '2024_04_06_134741_add_tarif_cv_solde_to_users_table', 11);
+(20, '2024_04_06_134741_add_tarif_cv_solde_to_users_table', 11),
+(21, '2024_04_06_230926_profile_controller', 12),
+(22, '2024_04_09_002935_add_statut_to_services_table', 12),
+(23, '2024_04_09_004407_delete_service_id_from_demandes_table', 13),
+(24, '2024_04_09_212824_add__nom_demandeur_to_demandes_table', 14);
 
 -- --------------------------------------------------------
 
@@ -207,7 +229,15 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (60, 'App\\Models\\User', 13, 'token', '20fd4d730809a7c305f92d74626b49e25385f48f1a6db8a4a0b7f8a9c7099ad1', '[\"*\"]', '2024-04-08 20:05:40', NULL, '2024-04-08 20:05:30', '2024-04-08 20:05:40'),
 (61, 'App\\Models\\User', 13, 'token', '13756222864f4e1023d4508a619620e9e3b06bacd8705c38c8c896f92469c96c', '[\"*\"]', '2024-04-08 22:10:35', NULL, '2024-04-08 20:08:42', '2024-04-08 22:10:35'),
 (62, 'App\\Models\\User', 13, 'token', '12750c91f0a3f667a3d57b27fa6490ac42874935fb903689afd6775cdcf3ee7a', '[\"*\"]', '2024-04-08 23:20:47', NULL, '2024-04-08 22:15:21', '2024-04-08 23:20:47'),
-(63, 'App\\Models\\User', 3, 'token', '6184976412f94ebc73b0d26cfa6fc5b47e13dff4e493342328173eda560e826b', '[\"*\"]', '2024-04-08 23:21:38', NULL, '2024-04-08 23:21:36', '2024-04-08 23:21:38');
+(63, 'App\\Models\\User', 3, 'token', '6184976412f94ebc73b0d26cfa6fc5b47e13dff4e493342328173eda560e826b', '[\"*\"]', '2024-04-09 00:48:55', NULL, '2024-04-08 23:21:36', '2024-04-09 00:48:55'),
+(64, 'App\\Models\\User', 3, 'token', '3ad3031d791f1d498973e6b093a4c356635c6ef6b41695971779673b6cbced10', '[\"*\"]', '2024-04-09 01:04:07', NULL, '2024-04-09 00:49:00', '2024-04-09 01:04:07'),
+(65, 'App\\Models\\User', 3, 'token', 'fd42cd887a501f552583ba5673b34056f429183289bb2c4a79a198d0efafbdf0', '[\"*\"]', '2024-04-09 01:09:57', NULL, '2024-04-09 01:04:20', '2024-04-09 01:09:57'),
+(66, 'App\\Models\\User', 3, 'token', '6c0024e73f1c7516e5515888f41bafbd9c5b1fdb4d8e425619d77fe40319c614', '[\"*\"]', '2024-04-09 21:25:01', NULL, '2024-04-09 18:54:09', '2024-04-09 21:25:01'),
+(67, 'App\\Models\\User', 3, 'token', '7d162d49c326b54ca6512fd2e9e46341ad9fd13dbd25b9e6f4b4b95f46abd2ec', '[\"*\"]', '2024-04-09 22:38:56', NULL, '2024-04-09 21:36:11', '2024-04-09 22:38:56'),
+(68, 'App\\Models\\User', 3, 'token', 'bcfcbfba3e0df4149b45701822150680c8a38769b84910f4dae2f527c9bb1991', '[\"*\"]', '2024-04-09 23:05:32', NULL, '2024-04-09 22:39:02', '2024-04-09 23:05:32'),
+(69, 'App\\Models\\User', 12, 'token', '7b7d856e4239a7fd5894ce7fc36ea18d8f97ec7e19178deb8710fbe4901a2171', '[\"*\"]', '2024-04-09 23:57:47', NULL, '2024-04-09 23:05:48', '2024-04-09 23:57:47'),
+(70, 'App\\Models\\User', 12, 'token', '7198571cff671f386e27da73840e1fc65ffa0fe8fe419a914b3df5bcb980fc32', '[\"*\"]', '2024-04-10 00:16:05', NULL, '2024-04-09 23:58:01', '2024-04-10 00:16:05'),
+(71, 'App\\Models\\User', 3, 'token', '83b1f8bb839250b539fb0d80de25a923c4a885d3025917a985bfe5f12850dce7', '[\"*\"]', '2024-04-10 00:16:29', NULL, '2024-04-10 00:16:27', '2024-04-10 00:16:29');
 
 -- --------------------------------------------------------
 
@@ -269,7 +299,8 @@ CREATE TABLE `services` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `categorie_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `photo` mediumtext DEFAULT NULL
+  `photo` mediumtext DEFAULT NULL,
+  `statut` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -398,25 +429,25 @@ ALTER TABLE `avis`
 -- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `demandes`
 --
 ALTER TABLE `demandes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT pour la table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT pour la table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT pour la table `profile`
