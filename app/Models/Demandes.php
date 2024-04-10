@@ -16,6 +16,7 @@ class Demandes extends Model
         'date_limite',
         'categorie_id',
         'photo',
+        'nomDemandeur',
 
     ];
     protected $table = 'demandes';

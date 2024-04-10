@@ -35,6 +35,8 @@ Route::get('profiles', [profileController::class, 'allProfiles']);
 
 // demandes
 Route::post('createDemande', [DemandeController::class, 'createDemande']);
+Route::get('demandes', [DemandeController::class, 'allDemandes']);
+Route::get('userDemandes/{id}', [DemandeController::class, 'userDemandes']);
 
 // categories
 Route::get('categories', [CategorieController::class, 'getCategories']);
