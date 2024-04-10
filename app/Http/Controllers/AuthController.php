@@ -12,6 +12,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
+    // cree une fonction qui envoie un email a un utilisateur par son id
+    public function sendEmail($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
+        }
+        $user->notify(new InscriptionReussiNotification($user->name));
+        return response()->json(['message' => 'email sent'], Response::HTTP_OK);
+    }
+
     public function Register(RegisterRequest $request)
     {
         $existingUserEmail = User::where('email', $request->email)->first();
@@ -38,21 +49,21 @@ class AuthController extends Controller
             'sexe' => $request->sexe,
         ]);
 
+        // verifier si le user est bien cree
+        if (!$user) {
+            return response()->json(['message' => 'User not created'], Response::HTTP_BAD_REQUEST);
+        }
+        
+        if($user){
+            $this->sendEmail($user->id);
+        }
+
 
         return response()->json(['message'=>'User created successfully','user'=>$user,Response::HTTP_CREATED]);
      
     }
 
-    // cree une fonction qui envoie un email a un utilisateur par son email
-    public function sendEmail($email)
-    {
-        $user = User::where('email', $email)->first();
-        if (!$user) {
-            return response()->json(['message' => 'Email not foundiii'], Response::HTTP_NOT_FOUND);
-        }
-        $user->notify(new InscriptionReussiNotification($user->name));
-        return response()->json(['message' => 'Email sent'], Response::HTTP_OK);
-    }
+   
 
 
     public function Login(Request $request)
