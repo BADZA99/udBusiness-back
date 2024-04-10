@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\DemandeController;
 use App\Http\Controllers\profileController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,10 @@ Route::get('profiles', [profileController::class, 'allProfiles']);
 Route::post('createDemande', [DemandeController::class, 'createDemande']);
 Route::get('demandes', [DemandeController::class, 'allDemandes']);
 Route::get('userDemandes/{id}', [DemandeController::class, 'userDemandes']);
+
+// services
+Route::post('createService', [ServiceController::class, 'createService']);
+Route::get('services', [ServiceController::class, 'allServices']);
 
 // categories
 Route::get('categories', [CategorieController::class, 'getCategories']);

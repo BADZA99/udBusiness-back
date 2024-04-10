@@ -13,6 +13,7 @@ class InscriptionReussiNotification extends Notification
 
     /**
      * Create a new notification instance.
+     * apres modif .env faire php artisan config:cache pour que les variables d'environnement soient prises en compte
      */
     public $name;
     // public $role;
