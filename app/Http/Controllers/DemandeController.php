@@ -39,4 +39,40 @@ class DemandeController extends Controller
         $demandes = Demandes::where('user_id', $id)->get();
         return response()->json(['demandes' => $demandes], Response::HTTP_OK);
     }
+
+    // les demandes d'une categorie
+    public function categorieDemandes($id)
+    {
+        $demandes = Demandes::where('categorie_id', $id)->get();
+        return response()->json(['demandes' => $demandes], Response::HTTP_OK);
+    }
+
+    // supprimer une demande 
+    public function deleteDemande($id)
+    {
+        $demande = Demandes::find($id);
+        if (!$demande) {
+            return response()->json(['message' => 'Demande not found'], Response::HTTP_NOT_FOUND);
+        }
+        $demande->delete();
+        return response()->json(['message' => 'Demande deleted successfully'], Response::HTTP_OK);
+    }
+
+    // modifier une demande
+    public function updateDemande(Request $request, $id)
+    {
+        $demande = Demandes::find($id);
+        if (!$demande) {
+            return response()->json(['message' => 'Demande not found'], Response::HTTP_NOT_FOUND);
+        }
+        $demande->update([
+            'titre' => $request->titre,
+            'description' => $request->description,
+            'date_limite' => $request->date_limite,
+            'categorie_id' => $request->categorie_id,
+            'nomDemandeur' => $request->nomDemandeur,
+            'photo' => $request->photo,
+        ]);
+        return response()->json(['message' => 'Demande updated successfully', 'demande' => $demande], Response::HTTP_OK);
+    }
 }

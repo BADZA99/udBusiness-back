@@ -38,6 +38,9 @@ Route::get('profiles', [profileController::class, 'allProfiles']);
 Route::post('createDemande', [DemandeController::class, 'createDemande']);
 Route::get('demandes', [DemandeController::class, 'allDemandes']);
 Route::get('userDemandes/{id}', [DemandeController::class, 'userDemandes']);
+Route::get('categorieDemandes/{id}', [DemandeController::class, 'categorieDemandes']);
+Route::delete('deleteDemande/{id}', [DemandeController::class, 'deleteDemande']);
+Route::patch('updateDemande/{id}', [DemandeController::class, 'updateDemande']);
 
 // services
 Route::post('createService', [ServiceController::class, 'createService']);

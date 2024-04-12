@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 class AuthController extends Controller
 {
     // cree une fonction qui envoie un email a un utilisateur par son id
+    
     public function sendEmail($id)
     {
         $user = User::find($id);
@@ -56,10 +57,10 @@ class AuthController extends Controller
         
         if($user){
             $this->sendEmail($user->id);
+            return response()->json(['message'=>'User created successfully and check email','user'=>$user,Response::HTTP_CREATED]);
         }
 
 
-        return response()->json(['message'=>'User created successfully','user'=>$user,Response::HTTP_CREATED]);
      
     }
 
