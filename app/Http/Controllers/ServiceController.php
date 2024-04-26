@@ -11,6 +11,16 @@ class ServiceController extends Controller
     //fonction qui cree un service 
     public function createService(Request $request)
     {
+
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $extension = $photo->getClientOriginalExtension();
+            $photoName = time() . '.' . $extension; 
+            $photo->move('images_services', $photoName);
+        } else {
+            $photoName = null; 
+        }
+
         $service = Services::create([
             'titre' => $request->titre,
             'description' => $request->description,
@@ -20,14 +30,17 @@ class ServiceController extends Controller
             'user_id' => $request->user_id,
             'statut' => 1,
             'categorie_id' => $request->categorie_id,
-            'photo' => $request->photo,
+            'photo' => $photoName, // Now $photoName will have the correct value
             'nomPrestataire' => $request->nomPrestataire,
             'telephonePresta' => $request->telephonePresta,
         ]);
+
+
+
         if (!$service) {
             return response()->json(['message' => 'Service not created'], Response::HTTP_BAD_REQUEST);
         }
-        return response()->json(['message' => 'Service created'], Response::HTTP_CREATED);
+        return response()->json(['message' => 'Service created'],Response::HTTP_CREATED);
     }
 
     // lister les services

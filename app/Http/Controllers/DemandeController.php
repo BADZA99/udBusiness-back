@@ -13,6 +13,14 @@ class DemandeController extends Controller
     public function createDemande(Request $request)
     {
         // $date = Carbon::createFromFormat('d-m-Y', $request->date_limite)->format('Y-m-d');
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $extension = $photo->getClientOriginalExtension();
+            $photoName = time() . '.' . $extension;
+            $photo->move('images_demandes', $photoName);
+        } else {
+            $photoName = null;
+        }
         $demande = Demandes::create([
             'user_id' => $request->user_id,
             'statut' => 1,
@@ -21,7 +29,7 @@ class DemandeController extends Controller
             'date_limite' => $request->date_limite,
             'categorie_id' => $request->categorie_id,
             'nomDemandeur' => $request->nomDemandeur,
-            'photo' => $request->photo,
+            'photo' => $photoName,
         ]);
         return response()->json(['message' => 'Demande created successfully', 'demande' => $demande], Response::HTTP_CREATED);
     }

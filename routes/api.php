@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\DemandeController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
