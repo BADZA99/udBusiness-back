@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Services;
+use App\Models\User;
+use App\Notifications\ServiceCreatedSuccess;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -39,8 +41,13 @@ class ServiceController extends Controller
 
         if (!$service) {
             return response()->json(['message' => 'Service not created'], Response::HTTP_BAD_REQUEST);
+        }else{
+            // trouver le user qui a publie le service
+            $user = User::find($request->user_id);
+            // envoyer une notification au user
+            $user->notify(new ServiceCreatedSuccess($user->name, $user->prenom, $service->titre));
+            return response()->json(['message' => 'Service created'],Response::HTTP_CREATED);
         }
-        return response()->json(['message' => 'Service created'],Response::HTTP_CREATED);
     }
 
     // lister les services

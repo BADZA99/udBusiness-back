@@ -17,6 +17,7 @@ class Demandes extends Model
         'categorie_id',
         'photo',
         'nomDemandeur',
+        'contact',
 
     ];
     protected $table = 'demandes';

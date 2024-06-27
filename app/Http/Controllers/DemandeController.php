@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Demandes;
+use App\Models\User;
+use App\Notifications\DemandeCreatedSuccess;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,8 +32,19 @@ class DemandeController extends Controller
             'categorie_id' => $request->categorie_id,
             'nomDemandeur' => $request->nomDemandeur,
             'photo' => $photoName,
+            'contact' => $request->contact,
         ]);
-        return response()->json(['message' => 'Demande created successfully', 'demande' => $demande], Response::HTTP_CREATED);
+        if($demande){
+            // trouver le user qui a fait la demande
+            $user = User::find($request->user_id);
+            // envoyer une notification au user
+            $user->notify(new DemandeCreatedSuccess($user->name, $user->prenom, $demande->titre));
+            return response()->json(['message' => 'Demande created successfully', 'demande' => $demande], Response::HTTP_CREATED);
+        }else{
+            return response()->json(['message' => 'Demande not created'], Response::HTTP_BAD_REQUEST);
+        
+        }
+  
     }
 
     // lister les demandes
