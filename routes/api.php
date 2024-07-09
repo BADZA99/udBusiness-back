@@ -27,24 +27,29 @@ Route::post('login', [AuthController::class, 'Login']);
 Route::middleware('auth:sanctum')->group(function(){
     Route::post('logout', [AuthController::class, 'Logout']);
     Route::get('user', [AuthController::class, 'User']);
+    Route::post('updateUser/{id}', [UserController::class, 'updateUser']);
+    Route::post('createDemande', [DemandeController::class, 'createDemande']);
+    Route::post('createService', [ServiceController::class, 'createService']);
+    Route::delete('deleteDemande/{id}', [DemandeController::class, 'deleteDemande']);
+    Route::patch('updateDemande/{id}', [DemandeController::class, 'updateDemande']);
 });
 
 
 Route::get('sendMail/{id}', [AuthController::class, 'sendEmail']);
-Route::post('updateUser/{id}', [UserController::class, 'updateUser']);
+
 // profile
 Route::get('profiles', [profileController::class, 'allProfiles']);
 
 // demandes
-Route::post('createDemande', [DemandeController::class, 'createDemande']);
+
 Route::get('demandes', [DemandeController::class, 'allDemandes']);
 Route::get('userDemandes/{id}', [DemandeController::class, 'userDemandes']);
 Route::get('categorieDemandes/{id}', [DemandeController::class, 'categorieDemandes']);
-Route::delete('deleteDemande/{id}', [DemandeController::class, 'deleteDemande']);
-Route::patch('updateDemande/{id}', [DemandeController::class, 'updateDemande']);
+// Route::delete('deleteDemande/{id}', [DemandeController::class, 'deleteDemande']);
+// Route::patch('updateDemande/{id}', [DemandeController::class, 'updateDemande']);
 
 // services
-Route::post('createService', [ServiceController::class, 'createService']);
+//Route::post('createService', [ServiceController::class, 'createService']);
 Route::get('services', [ServiceController::class, 'allServices']);
 Route::get('services/{id}', [ServiceController::class, 'userServices']);
 
