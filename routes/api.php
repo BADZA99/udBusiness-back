@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // user
+// route pour lister les users
+
 Route::post('register', [AuthController::class, 'Register']);
 Route::post('login', [AuthController::class, 'Login']);
 Route::middleware('auth:sanctum')->group(function(){
@@ -32,6 +34,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('createService', [ServiceController::class, 'createService']);
     Route::delete('deleteDemande/{id}', [DemandeController::class, 'deleteDemande']);
     Route::patch('updateDemande/{id}', [DemandeController::class, 'updateDemande']);
+    Route::delete('deleteService/{id}', [ServiceController::class, 'deleteService']);
+    Route::patch('updateService/{id}', [ServiceController::class, 'updateService']);
 });
 
 

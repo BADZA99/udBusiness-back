@@ -43,7 +43,7 @@ class InscriptionReussiNotification extends Notification
         return (new MailMessage)
             ->subject('Inscription réussie')
             ->greeting('Bonjour, ' . $this->name . ' 👋')
-            ->line('Nous sommes ravis de vous informer que votre inscription sur UD s\'est bien passée.')
+            ->line('Nous sommes ravis de vous informer que votre inscription sur UD Freelance s\'est bien passée.')
             // ->action('Visitez notre site', url('/'))
             ->line('Merci d\'avoir choisi notre application!');
     }

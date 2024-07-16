@@ -73,4 +73,39 @@ class ServiceController extends Controller
         }
         return response()->json(['service' => $service], Response::HTTP_OK);
     }
+
+    // deleteService
+    public function deleteService($id)
+    {
+        $service = Services::find($id);
+        if (!$service) {
+            return response()->json(['message' => 'Service not found'], Response::HTTP_NOT_FOUND);
+        }
+        $service->delete();
+        return response()->json(['message' => 'Service deleted'], Response::HTTP_OK);
+    }
+
+    // updateService
+    public function updateService(Request $request, $id)
+    {
+        $service = Services::find($id);
+        if (!$service) {
+            return response()->json(['message' => 'Service not found'], Response::HTTP_NOT_FOUND);
+        }
+        $service->update([
+            'titre' => $request->titre,
+            'description' => $request->description,
+            'tarif' => $request->tarif,
+            'date' => $request->date,
+            'lieu' => $request->lieu,
+            'user_id' => $request->user_id,
+            'statut' => 1, 
+            'categorie_id' => $request->categorie_id,
+            'nomPrestataire' => $request->nomPrestataire,
+            'telephonePresta' => $request->telephonePresta,
+        ]);
+        return response()->json(['message' => 'Service updated'], Response::HTTP_OK);
+    }
+
+
 }

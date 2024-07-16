@@ -86,14 +86,37 @@ class DemandeController extends Controller
         if (!$demande) {
             return response()->json(['message' => 'Demande not found'], Response::HTTP_NOT_FOUND);
         }
+
+        // Conserver l'ancienne photo
+        $photoName = $demande->photo;
+
+        // Vérifier si une nouvelle photo est téléchargée
+        if ($request->hasFile('photo')) {
+            // Supprimer l'ancienne photo si elle existe
+            if ($demande->photo) {
+                $oldPhotoPath = public_path('images_demandes/' . $demande->photo);
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath);
+                }
+            }
+            // Enregistrer la nouvelle photo
+            $photo = $request->file('photo');
+            $extension = $photo->getClientOriginalExtension();
+            $photoName = time() . '.' . $extension;
+            $photo->move('images_demandes', $photoName);
+        }
+
         $demande->update([
             'titre' => $request->titre,
             'description' => $request->description,
             'date_limite' => $request->date_limite,
             'categorie_id' => $request->categorie_id,
             'nomDemandeur' => $request->nomDemandeur,
-            'photo' => $request->photo,
+            'photo' => $photoName,
         ]);
+
         return response()->json(['message' => 'Demande updated successfully', 'demande' => $demande], Response::HTTP_OK);
     }
+
 }
+
