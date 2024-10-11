@@ -98,6 +98,11 @@ class AuthController extends Controller
         $cookie=Cookie::forget('jwt');
         return response()->json(['message'=>'logout successfull'],Response::HTTP_OK)->withCookie($cookie);
     }
+    public function LogoutGoogle()
+    {
+        $cookie=Cookie::forget('jwt');
+        return response()->json(['message'=>'logout successfull'],Response::HTTP_OK)->withCookie($cookie);
+    }
 
    
 }

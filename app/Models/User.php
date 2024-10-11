@@ -29,6 +29,7 @@ class User extends Authenticatable
         'tarif',
         'cv',
         'solde',
+        'google_id'
         
     ];
 

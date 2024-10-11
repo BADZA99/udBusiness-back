@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3000', 'https://ud-freelance.biz'],
+    'allowed_origins' => ['http://localhost:3000', 'https://ud-freelance.biz','http://localhost:4200'],
 
     'allowed_origins_patterns' => [],
 
